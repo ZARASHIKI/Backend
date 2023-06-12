@@ -49,6 +49,20 @@ app.get('/api/read', (req, res) => {
       console.log(error);
       res.status(500).json({ message: "Error reading data from database" });
     } else {
+      const data = results;
+      res.status(200).json(data);
+    }
+  });
+});
+app.post('/api/readata', (req, res) => {
+  // Lakukan operasi read di database
+  const { nama_barang} = req.body;
+  const nama = {nama_barang};
+  db.query('SELECT * FROM bahan_makanan WHERE ?',nama, (error, results) => {
+    if (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error reading data from database" });
+    } else {
       console.log(results);
       const data = results;
       res.status(200).json(data);
